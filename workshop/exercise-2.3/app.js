@@ -1,38 +1,20 @@
-console.log("hello");
-const container = document.querySelector("#main");
-const number = 20;
+let main = document.querySelector('#main');
+let buttonNum = 20;
 
-let clicked = false;
+const toggleColor = function(event){
+    event.target.classList.toggle('alt-button')
+}
 
-function clickButton(event) {
-    if (clicked === false) {
-    event.target.style.backgroundColor = "blue";
-    clicked = true;
-    } else {
-    event.target.style.backgroundColor = "black";
-    clicked = false;
+const generateButton = function(){
+    for(let num=0;num<buttonNum;num++){
+        let newButton = document.createElement('button');
+        newButton.innerText = `${num+1}`;
+        newButton.classList.add('button');
+        newButton.style.top = Math.floor(Math.random()*90) + 'vh';
+        newButton.style.left = Math.floor(Math.random()*90) + 'vw';
+        main.appendChild(newButton);
+        newButton.addEventListener('click',toggleColor);
     }
-    return clicked;
 }
 
-function removeAllEventListeners() {
-    buttonfolder.forEach(function (button) {
-    button.removeEventListener("mousdown", onClick);
-    });
-}
-
-for (i = 1; i <= number; i++) {
-
-    const randomN1 = Math.round(Math.random() * 800);
-    const randomN2 = Math.round(Math.random() * 1200);
-
-    const button = document.createElement("button");
-    button.innerText = i;
-    button.id = "btn" + i;
-    button.style.top = randomN1 + "px";
-    button.style.left = randomN2 + "px";
-    button.style.backgroundColor = "blue";
-    button.style.color = "white";
-    button.addEventListener("mousedown", clickButton);
-    container.appendChild(button);
-}
+generateButton();
